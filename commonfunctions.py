@@ -23,6 +23,8 @@ from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
 
+import os
+import cv2
 # Edges
 from skimage.filters import sobel_h, sobel, sobel_v,roberts, prewitt
 
@@ -90,3 +92,12 @@ def showHist(img):
     imgHist = histogram(img, nbins=256)
     
     bar(imgHist[1].astype(np.uint8), imgHist[0], width=0.8, align='center')
+    return imgHist
+
+def load_images(folder):
+    images = []
+    for filename in os.listdir(folder):
+        img = cv2.imread(os.path.join(folder,filename))
+        if img is not None:
+            images.append(img)
+    return images    
