@@ -1,0 +1,3 @@
+n_estimators=3000
+HOG:
+orientations=9, pixels_per_cell=(16, 16), cells_per_block=(3,3)
