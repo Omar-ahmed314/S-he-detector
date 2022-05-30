@@ -1,0 +1,1 @@
+MLPClassifier(random_state=0, max_iter=100, hidden_layer_sizes=2)
