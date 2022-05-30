@@ -7,8 +7,7 @@ import commonfunctions as cf
 import cv2
 import csv
 from skimage.feature import greycomatrix, greycoprops
-
-
+from cold_feature import cold_feature
 
 
 # ICDAR LABELS 
@@ -68,6 +67,7 @@ def extract(image , file):
     HOG_test=[]
     LBP_test=[]
     GLCM_test=[]
+    cold = cold_feature(10, 10)
 
     #------------------- HOG feature------------------------
     feature_vector,hog_image=HOG(image)
@@ -83,11 +83,19 @@ def extract(image , file):
     #------------------- GLCM feature------------------------
     img = cv2.imread("Test_data_evaluation/"+file )  
     GLCM_test=GLCM(img)
+    #-------------------- Cold feature ------------------------
+    # convert to gray
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    #-------------------- Cold feature ------------------------
+     # threshold the grayscale image
+    thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    cold_feature_vector = cold.getFeatureVectors(thresh)
     #--------------------------------------------------------
 
     # concatenate all the features in X_train
     feature_test_temp=(np.hstack((HOG_test,LBP_test))).tolist()
-    feature_test_temp2=(np.hstack((feature_test_temp[0],GLCM_test))).tolist()
+    feature_test_temp1=(np.hstack((feature_test_temp[0],cold_feature_vector))).tolist()
+    feature_test_temp2=(np.hstack((feature_test_temp1[0],GLCM_test))).tolist()
     
     return feature_test_temp2
  

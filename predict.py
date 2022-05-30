@@ -6,7 +6,6 @@ import cv2
 import timeit
 import numpy as np
 import Classification
-from skimage import io
 
 parser = argparse.ArgumentParser()
 parser.add_argument("testPath", help="path")
@@ -15,14 +14,25 @@ parser.add_argument("outPath", help="path")
 args = parser.parse_args()
 testPath = args.testPath
 outPath = args.outPath
-target = "Test_data_evaluation/"
+# target = "Test_data_evaluation/"
 Y_train= ExtracteFeatures.read_labels("Training_data/")
 
 # Read feature vector of train data from the npy file 
 with open('training_features.npy', 'rb') as f:
     X_train = np.load(f,allow_pickle=True)
 f.close() 
-    
+
+# files=os.listdir(testPath)
+# for file in files:
+#     img = cv2.imread("Training_data/"+file )  
+#     X_train = ExtracteFeatures.extract(img,file)
+# #write feature vector of each image in external file
+# with open('HOG_LBP_GLCM_COLD_train.npy', 'wb') as f:
+#     np.save(f, X_train)
+# f.close()
+
+clf = Classification.RandomForestClassification(X_train,Y_train)
+
 files=os.listdir(testPath)
 file1 = open(outPath+'/results.txt', 'a')
 file1.truncate(0)
@@ -34,7 +44,6 @@ i = 1
 for file in files:
     
     img = cv2.imread(testPath+'/'+ file )
-    # image = io.imread(testPath+'/'+ file )
 
     start = timeit.default_timer() 
 
@@ -44,8 +53,6 @@ for file in files:
 
     X_test = ExtracteFeatures.extract(preprocessed_img,file)
 
-    clf = Classification.RandomForestClassification(X_train,Y_train)
-    
     Y_Predicted=clf.predict([X_test])
 
     end= timeit.default_timer()  - start
