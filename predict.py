@@ -1,6 +1,6 @@
 import argparse
 import preprocessing
-import Feature_Extraction
+import ExtracteFeatures
 import os
 import cv2
 import timeit
@@ -16,7 +16,7 @@ args = parser.parse_args()
 testPath = args.testPath
 outPath = args.outPath
 target = "Test_data_evaluation/"
-Y_train= Feature_Extraction.read_labels("Training_data/")
+Y_train= ExtracteFeatures.read_labels("Training_data/")
 
 # Read feature vector of train data from the npy file 
 with open('training_features.npy', 'rb') as f:
@@ -42,7 +42,7 @@ for file in files:
 
     preprocessed_img = preprocessing.preprocessing(cropped_img)
 
-    X_test = Feature_Extraction.extract(preprocessed_img,file)
+    X_test = ExtracteFeatures.extract(preprocessed_img,file)
 
     clf = Classification.RandomForestClassification(X_train,Y_train)
     
