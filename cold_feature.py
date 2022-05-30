@@ -7,17 +7,15 @@ class cold_feature:
         self.numOfRhos = numOfRhos
         self.numOfAngles = numOfAngles
         self.poly_approx_method_accuracy = poly_approx_method_accuracy
-        self.image = []
-        print('hello from the constractor')
     
-    def set_image(self, image):
-        """
-        Set the image to be used in the feature vectors calculations
+    # def set_image(self, image):
+    #     """
+    #     Set the image to be used in the feature vectors calculations
 
-        key arguments:
-        image -- The image to be extracted
-        """
-        self.image = image
+    #     key arguments:
+    #     image -- The image to be extracted
+    #     """
+    #     self.image = image
 
     def PolyApproxMethod(self, image):
         """
@@ -114,13 +112,13 @@ class cold_feature:
         feature_vector = normalized_hist.flatten()
         return feature_vector
 
-    def getFeatureVectors(self):
+    def getFeatureVectors(self, image):
         """
         This function implements the whole process to 
         extract the feature vector for the image provided 
         by the constructor
         """
-        poly_approximated_image = self.PolyApproxMethod(self.image)
+        poly_approximated_image = self.PolyApproxMethod(image)
         distribution = self.distribution(poly_approximated_image)
         feature_vector = self.calculateFeatureVector(distribution)
         return np.asarray(feature_vector)
