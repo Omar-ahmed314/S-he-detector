@@ -1,0 +1,3 @@
+n_estimators=370
+LBP: 24, 8
+GLCM: distances=[5], angles=[45], levels=256,symmetric=True, normed=True
