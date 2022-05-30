@@ -100,7 +100,7 @@ class cold_feature:
         r_inner = 5
         r_outter = 35
         rhos = np.log10(distribution[:, 0])
-        thetas = np.asarray(distribution[:, 1])
+        thetas = np.degrees(np.asarray(distribution[:, 1]))
         rho_levels = np.log10(np.linspace(r_inner, r_outter, self.numOfRhos))
         quantized_values = np.zeros(rhos.shape, dtype = int)
         for i in range(self.numOfRhos):
