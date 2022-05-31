@@ -85,11 +85,8 @@ for file in files:
             file2.write(str(round(end,2)))
     else:
         file1.write(str(int(Y_Predicted))+ "\n")
-        print("1",end)
         if(round(end,3) == 0.0):
-            print("2",end)
             end =  0.001
-            print("3",end)
             file2.write(str(end)+ "\n")
         else: 
             file2.write(str(round(end,2))+ "\n")
