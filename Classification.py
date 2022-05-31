@@ -28,7 +28,7 @@ def AdaBoostClassification(X_train,Y_train):
     return clf
 
 def Gradient_Boost_Classifier(X_train,Y_train):
-    clf=GradientBoostingClassifier(n_estimators=50, learning_rate=1.0, max_depth=8,random_state=0)
+    clf=GradientBoostingClassifier(n_estimators=120, learning_rate=1.0, max_depth=8,random_state=0)
     clf.fit(X_train,Y_train)
     return clf
 

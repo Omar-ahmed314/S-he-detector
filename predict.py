@@ -33,7 +33,7 @@ f.close()
 #     np.save(f, X_train)
 # f.close()
 
-clf = Classification.RandomForestClassification(X_train,Y_train)
+clf = Classification.Gradient_Boost_Classifier(X_train,Y_train)
 
 # with open('clf.npy', 'wb') as f:
 #     np.save(f, clf)
