@@ -7,7 +7,7 @@ import commonfunctions as cf
 import cv2
 import csv
 from skimage.feature import greycomatrix, greycoprops
-from cold_feature import cold_feature
+
 
 
 # ICDAR LABELS 
@@ -63,39 +63,32 @@ def GLCM (image):
     featureVector.append(greycoprops(glcm, 'homogeneity')[0, 0])
     return featureVector
 
-def extract(image , file):
-    HOG_test=[]
-    LBP_test=[]
-    GLCM_test=[]
-    cold = cold_feature(10, 10)
+def extract(cold):
 
-    #------------------- HOG feature------------------------
-    feature_vector,hog_image=HOG(image)
-    HOG_test.append(feature_vector)
-    #--------------------------------------------------------
-
-    # #------------------- LBP feature------------------------
-    image = cf.downSize(image , 0.5)
-    hist = lbp().describe(image)
-    LBP_test.append(hist)
-    #--------------------------------------------------------
-    
-    #------------------- GLCM feature------------------------
-    img = cv2.imread("Test_data_evaluation/"+file )  
-    GLCM_test=GLCM(img)
-    #-------------------- Cold feature ------------------------
+    # read the image
+    # img = cv2.imread("Test_data/"+file )
+    # ------------------- Convert into gray image -------------
     # convert to gray
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #-------------------- Cold feature ------------------------
-     # threshold the grayscale image
+    image = cv2.imread("testing/test.jpg" )
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        
+    # threshold the grayscale image
     thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
-    cold_feature_vector = cold.getFeatureVectors(thresh)
-    #--------------------------------------------------------
 
-    # concatenate all the features in X_train
-    feature_test_temp=(np.hstack((HOG_test,LBP_test))).tolist()
-    feature_test_temp1=(np.hstack((feature_test_temp[0],cold_feature_vector))).tolist()
-    feature_test_temp2=(np.hstack((feature_test_temp1[0],GLCM_test))).tolist()
+    # ------------------- GLCM feature-----------------------
+    GLCM_train=GLCM(image)
+    #--------------------------------------------------------
+    # ------------------- HOG feature------------------------
+    HOG_train,hog_image=HOG(thresh)
+    # --------------------------------------------------------
+    #------------------- LBP feature------------------------
+    hist = lbp().describe(thresh)
+    #-------------------- Cold feature ------------------------
+    cold_feature_vector = cold.getFeatureVectors(thresh)
+
+    # concatenate all the features in X_train   
+    feature_test_temp=np.hstack((HOG_train, GLCM_train, hist, cold_feature_vector)).tolist()
+ 
     
-    return feature_test_temp2
+    return feature_test_temp
  

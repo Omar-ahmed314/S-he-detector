@@ -6,6 +6,7 @@ import cv2
 import timeit
 import numpy as np
 import Classification
+from cold_feature import cold_feature
 
 parser = argparse.ArgumentParser()
 parser.add_argument("testPath", help="path")
@@ -18,9 +19,10 @@ outPath = args.outPath
 Y_train= ExtracteFeatures.read_labels("Training_data/")
 
 # Read feature vector of train data from the npy file 
-with open('training_features.npy', 'rb') as f:
+with open('final models/85.13/ALL_features.npy', 'rb') as f:
     X_train = np.load(f,allow_pickle=True)
 f.close() 
+# print(len(X_train[0]))
 
 # files=os.listdir(testPath)
 # for file in files:
@@ -33,6 +35,16 @@ f.close()
 
 clf = Classification.RandomForestClassification(X_train,Y_train)
 
+# with open('clf.npy', 'wb') as f:
+#     np.save(f, clf)
+# f.close()
+
+# with open('clf.npy', 'rb') as f:
+#     clf = np.load(f,allow_pickle=True)
+# f.close() 
+
+cold = cold_feature()
+# print("hi")
 files=os.listdir(testPath)
 file1 = open(outPath+'/results.txt', 'a')
 file1.truncate(0)
@@ -51,7 +63,9 @@ for file in files:
 
     preprocessed_img = preprocessing.preprocessing(cropped_img)
 
-    X_test = ExtracteFeatures.extract(preprocessed_img,file)
+    cv2.imwrite("testing/test.jpg", preprocessed_img)
+
+    X_test = ExtracteFeatures.extract(cold)
 
     Y_Predicted=clf.predict([X_test])
 
