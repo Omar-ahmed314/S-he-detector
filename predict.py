@@ -16,7 +16,20 @@ args = parser.parse_args()
 testPath = args.testPath
 outPath = args.outPath
 # target = "Test_data_evaluation/"
+#-------------------delete---------------------------------------------
 Y_train= ExtracteFeatures.read_labels("Training_data/")
+
+#write train labels in external file
+with open('final models/85.13/final_train_labels.npy', 'wb') as f:
+    np.save(f, Y_train)
+f.close()  
+#------------------------delete-------------------------------------------
+# then uncomment this:
+# # Read feature vector of train data from the npy file 
+# with open('final models/85.13/final_train_labels.npy', 'rb') as f:
+#     Y_train = np.load(f,allow_pickle=True)
+#f.close() 
+#-------------------------------------------------------------------
 
 # Read feature vector of train data from the npy file 
 with open('final models/85.13/ALL_features.npy', 'rb') as f:
