@@ -72,7 +72,7 @@ https://docs.google.com/document/d/16FQCmli5y5Mh4aV52EdKAZJq52TqvPk_NUzCIPTOZ00/
 
 
 
-## Contributors 👩🏻‍💻👨🏻‍💻
+# Contributors 👩🏻‍💻👨🏻‍💻
 <table align="center">
   <tr>
     <td align="center">
