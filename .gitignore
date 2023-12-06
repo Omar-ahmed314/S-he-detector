@@ -1,9 +1,8 @@
 our dataset
-M*
-F*
-0*
+Test_data
+testing
+Training_data
 .ipynb_checkpoints
 .vscode
 __pycache__
-0*
 *.npy
