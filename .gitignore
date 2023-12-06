@@ -6,4 +6,4 @@ F*
 .vscode
 __pycache__
 0*
-.npy
+*.npy
