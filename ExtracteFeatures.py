@@ -12,11 +12,11 @@ from skimage.feature import greycomatrix, greycoprops
 
 # ICDAR LABELS
 labels_ICDAR = []
-with open("our dataset/train_answers.csv", "r") as file:
-    csvreader = csv.reader(file, delimiter=",")
-    rows = np.array(list(csvreader))[1:].astype(float).astype(int)
-for row in rows:
-    labels_ICDAR.append(row[1])
+# with open("our dataset/train_answers.csv", "r") as file:
+#     csvreader = csv.reader(file, delimiter=",")
+#     rows = np.array(list(csvreader))[1:].astype(float).astype(int)
+# for row in rows:
+#     labels_ICDAR.append(row[1])
 
 
 def get_label_ICDAR(img):
